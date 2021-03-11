@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Patriks webbutik</title>
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+</head>
+
+<body>
+    <div class="container">
+            <div class="row" id="output">
+                <!--AJAX output goes here-->
+            </div>
+    </div>
+
+<script>
+        fetch("https://fakestoreapi.com/products")
+            .then(resp => resp.json())
+            .then(data => render(data))
+            .catch(err => console.error(err));
+
+        function render(data) {
+            let output = "";
+            data.forEach(product => {
+                output +=
+                    `<div class="col-lg-4 col-md-6 mb-4">
+                        <div class="card h-100">
+                            <img class="card-img-top" src=${product.image} alt="Product">
+                            <div class="card-body">
+                                <h4 class="card-title">${product.title}</h4>
+                                <h5>${product.price} kr</h5>
+                                <p class="card-text">${product.description}</p>
+                                <a href="order.html">
+                                    <button id="${product.id}" class="btn btn-primary">Köp</button>
+                                </a>
+                            </div>
+                        </div>
+                    </div>`
+            });
+            document.getElementById("output").innerHTML = output;
+        }
+
+    </script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"
+        integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+    <script src="js/bootstrap.min.js"></script>
+</body>
+
+</html>

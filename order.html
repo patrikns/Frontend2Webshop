@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Beställning</title>
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+</head>
+
+<body>
+    <h1>Produkter i varukorgen:</h1>
+    <div id="output"></div>
+
+    <h1>Ange dina uppgifter och bekräfta din order:</h1>
+    <form id="myForm">
+        <div class="form-group">
+            <input type="text" class="form-control" id="name" placeholder="Namn...">
+        </div>
+        <div class="form-group">
+            <input type="text" class="form-control" id="phone" placeholder="Tele...">
+        </div>
+        <div class="form-group">
+            <input type="text" class="form-control" id="email" placeholder="Epost...">
+        </div>
+        <div class="form-group">
+            <input type="text" class="form-control" id="address" placeholder="Gatuadress...">
+        </div>
+        <div class="form-group">
+            <input type="text" class="form-control" id="city" placeholder="Postnr och ort...">
+        </div>
+        <button type="submit" class="btn btn-primary">Beställ</button>
+    </form>
+
+    <script>
+        fetch(`https://fakestoreapi.com/products/${id}`)
+            .then(resp => resp.json())
+            .then(data => render(data))
+            .catch(err => console.error(err));
+
+        function render(data) {
+            document.getElementById("output").innerHTML = `1 x ${data.name}`;
+        }
+
+    </script>
+    <script src="js/main.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"
+        integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+    <script src="js/bootstrap.min.js"></script>
+</body>
+
+</html>
