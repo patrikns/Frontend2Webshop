@@ -11,12 +11,13 @@
 
 <body>
     <div class="container">
-            <div class="row" id="output">
-                <!--AJAX output goes here-->
-            </div>
+        <div class="row" id="output">
+            <!--AJAX output goes here-->
+        </div>
     </div>
 
-<script>
+    <script src="js/main.js"></script>
+    <script>
         fetch("https://fakestoreapi.com/products")
             .then(resp => resp.json())
             .then(data => render(data))
@@ -31,11 +32,9 @@
                             <img class="card-img-top" src=${product.image} alt="Product">
                             <div class="card-body">
                                 <h4 class="card-title">${product.title}</h4>
-                                <h5>${product.price} kr</h5>
+                                <h5>${product.price} euro</h5>
                                 <p class="card-text">${product.description}</p>
-                                <a href="order.html">
-                                    <button id="${product.id}" class="btn btn-primary">Köp</button>
-                                </a>
+                                <a class="btn btn-primary" onclick="getItem(${product.id})" href="order.html" target="_blank">Köp</a>
                             </div>
                         </div>
                     </div>`

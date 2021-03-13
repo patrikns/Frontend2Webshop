@@ -10,10 +10,12 @@
 </head>
 
 <body>
-    <h1>Produkter i varukorgen:</h1>
-    <div id="output"></div>
+    <h2>Produkter i varukorgen:</h2>
+    <ul id="output">
+        <!-- shopping cart goes here -->
+    </ul>
 
-    <h1>Ange dina uppgifter och bekräfta din order:</h1>
+    <h3>Ange dina uppgifter och bekräfta din order:</h3>
     <form id="myForm">
         <div class="form-group">
             <input type="text" class="form-control" id="name" placeholder="Namn...">
@@ -34,17 +36,44 @@
     </form>
 
     <script>
-        fetch(`https://fakestoreapi.com/products/${id}`)
-            .then(resp => resp.json())
-            .then(data => render(data))
-            .catch(err => console.error(err));
+        var cart = JSON.parse(localStorage.getItem("cart"));
+        let output = "";
+        let sum = 0;
 
-        function render(data) {
-            document.getElementById("output").innerHTML = `1 x ${data.name}`;
+        cart.forEach(product => {
+            output += `<li>1 x ${product.title} ${product.price} euro</li>`
+            sum += product.price;
+        });
+        
+        output += `Totalt: ${Math.round(sum * 100) / 100} euro`
+        document.getElementById("output").innerHTML = output;
+
+        document.getElementById("myForm").addEventListener("submit", placeOrder);
+
+        function placeOrder(e) {
+            let name = document.getElementById("name").value,
+                phone = document.getElementById("phone").value,
+                email = document.getElementById("email").value,
+                address = document.getElementById("address").value,
+                city = document.getElementById("city").value;
+
+            if (!validateForm(name, phone, email, address, city)) {
+                return false;
+            }
+            else {
+                alert("Tack för din beställning!");
+            }
+        }
+
+        function validateForm(name, phone, email, address, city) {
+            if (!name || !phone || !email || !address || !city) {
+                alert("Vänligen fyll i alla fält")
+                return false;
+            }
+            return true;
         }
 
     </script>
-    <script src="js/main.js"></script>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"
         integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
     <script src="js/bootstrap.min.js"></script>
