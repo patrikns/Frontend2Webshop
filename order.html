@@ -54,16 +54,11 @@
                 <td>${product.title}</td>
                 <td>${product.price} euro</td>
                 <td>${num}</td>
-                <td>
-                    <button class="btn btn-primary">+</button>
-                    <button class="btn btn-primary">-</button>
-                    </td>
                 </tr>`;
             sum += product.price;
         });
         
-        output += `<div>Totalt: ${Math.round(sum * 100) / 100} euro</div>
-        <button class="btn btn-primary">Töm varukorgen</button>`;
+        output += `<div>Totalt: ${Math.round(sum * 100) / 100} euro</div>`;
         document.getElementById("output").innerHTML = output;
     </script>
 

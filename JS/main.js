@@ -24,4 +24,6 @@ function addToCart(item) {
         cart.push(item);
         localStorage.setItem("cart", JSON.stringify(cart));
     }
+
+    alert(`Produkten ${item.name} tillagd i varukorgen`)
 }
