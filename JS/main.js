@@ -1,11 +1,13 @@
-function getItem(id) {
+function getItemById(id) {
     fetch(`https://fakestoreapi.com/products/${id}`)
         .then(resp => resp.json())
-        .then(data => addToCart(data))
+        .then(item => addToCart(item))
         .catch(err => console.error(err));
 }
 
 function addToCart(item) {
+    item["count"] = 1;
+
     if (localStorage.getItem("cart") === null) {
         var cart = [];
         cart.push(item);
@@ -13,6 +15,12 @@ function addToCart(item) {
     }
     else {
         var cart = JSON.parse(localStorage.getItem("cart"));
+        cart.forEach(cartItem => {
+            if (item.id == cartItem.id) {
+                cartItem.count++;
+                return false;
+            }           
+        });
         cart.push(item);
         localStorage.setItem("cart", JSON.stringify(cart));
     }

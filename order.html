@@ -10,18 +10,24 @@
 </head>
 
 <body>
-    <h2>Produkter i varukorgen:</h2>
-    <ul id="output">
-        <!-- shopping cart goes here -->
-    </ul>
+    <div class="container">
+        <h1>Produkter i varukorgen</h1>
+        <table class="table" id="output">
+            <!-- shopping cart goes here -->
+        </table>
+    </div>
+    
+    <hr>    
 
-    <h3>Ange dina uppgifter och bekräfta din order:</h3>
-    <form id="myForm">
-        <div class="form-group">
-            <input type="text" class="form-control" id="name" placeholder="Namn...">
-        </div>
-        <div class="form-group">
-            <input type="text" class="form-control" id="phone" placeholder="Tele...">
+    <div class="container">
+        <h1>Genomför beställning</h1>
+        <h3>Fyll i uppgifter för att bekräfta beställningen</h3>
+        <form>
+            <div class="form-group">
+                <input type="text" class="form-control" id="name" placeholder="Namn...">
+            </div>
+            <div class="form-group">
+                <input type="text" class="form-control" id="phone" placeholder="Tele...">
         </div>
         <div class="form-group">
             <input type="text" class="form-control" id="email" placeholder="Epost...">
@@ -32,48 +38,36 @@
         <div class="form-group">
             <input type="text" class="form-control" id="city" placeholder="Postnr och ort...">
         </div>
-        <button type="submit" class="btn btn-primary">Beställ</button>
+        <button onclick="placeOrder()" class="btn btn-primary">Beställ</button>
     </form>
+</div>
+<br>
 
     <script>
         var cart = JSON.parse(localStorage.getItem("cart"));
         let output = "";
         let sum = 0;
-
+        
         cart.forEach(product => {
-            output += `<li>1 x ${product.title} ${product.price} euro</li>`
+            let num = 0;
+            output += `<tr>
+                <td>${product.title}</td>
+                <td>${product.price} euro</td>
+                <td>${num}</td>
+                <td>
+                    <button class="btn btn-primary">+</button>
+                    <button class="btn btn-primary">-</button>
+                    </td>
+                </tr>`;
             sum += product.price;
         });
         
-        output += `Totalt: ${Math.round(sum * 100) / 100} euro`
+        output += `<div>Totalt: ${Math.round(sum * 100) / 100} euro</div>
+        <button class="btn btn-primary">Töm varukorgen</button>`;
         document.getElementById("output").innerHTML = output;
-
-        document.getElementById("myForm").addEventListener("submit", placeOrder);
-
-        function placeOrder(e) {
-            let name = document.getElementById("name").value,
-                phone = document.getElementById("phone").value,
-                email = document.getElementById("email").value,
-                address = document.getElementById("address").value,
-                city = document.getElementById("city").value;
-
-            if (!validateForm(name, phone, email, address, city)) {
-                return false;
-            }
-            else {
-                alert("Tack för din beställning!");
-            }
-        }
-
-        function validateForm(name, phone, email, address, city) {
-            if (!name || !phone || !email || !address || !city) {
-                alert("Vänligen fyll i alla fält")
-                return false;
-            }
-            return true;
-        }
-
     </script>
+
+    <script src="js/order.js"></script>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"
         integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
     <script src="js/bootstrap.min.js"></script>
