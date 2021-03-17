@@ -1,4 +1,5 @@
 function getItemById(id) {
+    //gets the clicked item from API
     fetch(`https://fakestoreapi.com/products/${id}`)
         .then(resp => resp.json())
         .then(item => addToCart(item))
@@ -6,6 +7,7 @@ function getItemById(id) {
 }
 
 function addToCart(item) {
+    //adds the clicked item to localStorage key "cart"
     item["count"] = 1;
 
     if (localStorage.getItem("cart") === null) {

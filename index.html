@@ -41,6 +41,7 @@
 
     <script src="js/main.js"></script>
     <script>
+      //To render products
         fetch("https://fakestoreapi.com/products")
             .then(resp => resp.json())
             .then(data => render(data))
